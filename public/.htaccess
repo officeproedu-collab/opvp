@@ -1,0 +1,15 @@
+Options -MultiViews
+RewriteEngine On
+
+# Handle Next.js static export routing
+# If the exact file exists, serve it
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Try appending .html to the URL
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Fallback to index.html for client-side routing
+RewriteRule ^ /index.html [L]
